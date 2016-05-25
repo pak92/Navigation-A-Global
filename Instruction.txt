@@ -1,0 +1,26 @@
+1. Stwórz nowy catkin package i u¿yj catkin make
+2. W folderze z libami powinien powstaæ Ci nowy plik librelaxed_astar_lib
+3. source devel/setup.bash
+4. SprawdŸ czy doda³ siê plugin komend¹:
+rospack plugins --attrib=plugin nav_core
+Powinien byæ wypisany astar
+5. Jesli nie masz turtlebot worskapce to ja instalowa³em to (dla indigo):
+sudo apt-get install ros-indigo-turtlebot ros-indigo-turtlebot-apps ros-indigo-turtlebot-interactions ros-indigo-turtlebot-simulator ros-indigo-kobuki-ftdi ros-indigo-rocon-remocon ros-indigo-rocon-qt-library ros-indigo-ar-track-alvar-msgs
+
+plus:
+W tym samym folderze co catkin_ws:
+mkdir ~/turtlebot
+cd ~/turtlebot
+wstool init src -j5 https://raw.github.com/yujinrobot/yujin_tools/master/rosinstalls/indigo/turtlebot.rosinstall
+source /opt/ros/indigo/setup.bash
+rosdep install --from-paths src -i -y
+catkin_make
+
+6. Dodaj do pliku 
+roscd turtlebot_navigation/launch/includes/move_base.launch.xml
+<param name="base_global_planner" value="RAstar_planner/RAstarPlannerROS"/> 
+
+7. Upewnij siê, ¿e plugin jest nadal dodany (wczeœniej source devel/setup.bash)
+8. uruchom: roslaunch relaxed_astar navigation.launch
+
+Korzysta z stage, turtlebot oraz amcl. Mapa to podstawowy "maze".
